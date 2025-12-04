@@ -37,57 +37,93 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 h-full w-20 flex flex-col justify-between bg-white dark:bg-black shadow-lg z-50">
-      {/* Logo */}
-      <div className="flex flex-col items-center py-6">
-        <h1
-          className={`text-2xl font-bold select-none ${
-            darkMode ? "text-white" : "text-black"
-          }`}
-        >
-          R
-        </h1>
-      </div>
+    <>
+      {/* Desktop Navbar */}
+      <nav className="hidden md:flex fixed top-0 left-0 h-full w-20 flex-col justify-between bg-white dark:bg-black shadow-lg z-50">
+        <div className="flex flex-col items-center py-6">
+          <h1
+            className={`text-2xl font-bold select-none ${
+              darkMode ? "text-white" : "text-black"
+            }`}
+          >
+            R
+          </h1>
+        </div>
 
-      {/* Nav Items */}
-      <ul className="flex flex-col items-center mt-10 space-y-6">
-        {navItems.map((item, idx) => (
-          <li key={idx} className="group relative w-full flex justify-center">
-            <button
-              onClick={() => handleClick(item)}
-              className="flex items-center justify-center w-12 h-12 rounded-xl text-gray-900 dark:text-white 
-                         hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 
-                         transition-all duration-300 transform hover:scale-110"
-            >
-              {item.icon}
-            </button>
+        <ul className="flex flex-col items-center mt-10 space-y-6">
+          {navItems.map((item, idx) => (
+            <li key={idx} className="group relative w-full flex justify-center">
+              <button
+                onClick={() => handleClick(item)}
+                className="flex items-center justify-center w-12 h-12 rounded-xl text-gray-900 dark:text-white 
+                           hover:text-indigo-500 hover:bg-gray-100 dark:hover:bg-gray-800 
+                           transition-all duration-300 transform hover:scale-110"
+              >
+                {item.icon}
+              </button>
 
-            {/* Tooltip */}
-            <span
-              className="absolute left-16 top-1/2 -translate-y-1/2 whitespace-nowrap 
-                         bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 
-                         text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100
-                         transition-all duration-300 translate-x-2 group-hover:translate-x-0"
-            >
-              {item.label}
-            </span>
+              <span
+                className="absolute left-16 top-1/2 -translate-y-1/2 whitespace-nowrap 
+                           bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 
+                           text-sm px-3 py-1 rounded-md opacity-0 group-hover:opacity-100
+                           transition-all duration-300 translate-x-2 group-hover:translate-x-0"
+              >
+                {item.label}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex justify-center mb-6">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            {darkMode ? (
+              <Sun size={20} className="text-yellow-400" />
+            ) : (
+              <Moon size={20} className="text-gray-900" />
+            )}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Navbar */}
+      <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-black shadow-inner z-50">
+        <ul className="flex justify-around items-center py-2">
+          {navItems.map((item, idx) => (
+            <li key={idx}>
+              <button
+                onClick={() => handleClick(item)}
+                className="flex flex-col items-center justify-center text-gray-900 dark:text-white 
+                     hover:text-indigo-500 transition-all duration-300"
+              >
+                {item.icon}
+                <span className="text-xs mt-1">{item.label}</span>
+              </button>
+            </li>
+          ))}
+
+          {/* Dark Mode Toggle */}
+          <li>
+            <div className="flex flex-col items-center">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                {darkMode ? (
+                  <Sun size={18} className="text-yellow-400" />
+                ) : (
+                  <Moon size={18} className="text-gray-900" />
+                )}
+              </button>
+              <span className="text-xs mt-1 text-gray-900 dark:text-white">
+                Mode
+              </span>
+            </div>
           </li>
-        ))}
-      </ul>
-
-      {/* Dark Mode Toggle */}
-      <div className="flex justify-center mb-6">
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 shadow-md hover:shadow-lg transition-all duration-300"
-        >
-          {darkMode ? (
-            <Sun size={20} className="text-yellow-400" />
-          ) : (
-            <Moon size={20} className="text-gray-900" />
-          )}
-        </button>
-      </div>
-    </nav>
+        </ul>
+      </nav>
+    </>
   );
 }
