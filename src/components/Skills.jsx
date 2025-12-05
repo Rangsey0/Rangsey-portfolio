@@ -4,11 +4,11 @@ const skills = [
   "React",
   "Tailwind CSS",
   "HTML/CSS",
-  "Github",
-  "Python",
+  "Git/Github",
   "MySQL",
   "Laravel",
   "Jupyter Notebook",
+  "Python",
 ];
 
 export default function Skills() {
